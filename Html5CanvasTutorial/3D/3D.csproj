@@ -57,6 +57,10 @@
     <Content Include="BasicScripts\webgl-utils.js" />
     <Content Include="BasicScripts\webgl-vsdoc.js" />
     <Content Include="BasicScripts\webgl.idl" />
+    <Content Include="index.html" />
+    <Content Include="Lesson001\index.html" />
+    <Content Include="Lesson001\Resources\modelLeft.js" />
+    <Content Include="Lesson001\Resources\modelRight.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -69,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Lesson001\Resources\" />
     <Folder Include="Lesson001\Scripts\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
