@@ -17,7 +17,5 @@ namespace obj2js.ObjData
 		public List<Tuple<float, float, float>> textureCoords = new List<Tuple<float, float, float>>();
 		// f: MaterialName,A(vertex index, texture coord index,vertex normal index),B(),C()
 		public List<Tuple<string, Tuple<int, int, int>, Tuple<int, int, int>, Tuple<int, int, int>>> faces = new List<Tuple<string, Tuple<int, int, int>, Tuple<int, int, int>, Tuple<int, int, int>>>();
-
-		public List<Material> Materials = new List<Material>();
 	}
 }
