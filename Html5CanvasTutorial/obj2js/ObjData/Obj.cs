@@ -41,6 +41,8 @@ namespace obj2js.ObjData
 			var MtlFile = ObjFile.Substring(0, ObjFile.Length - 3) + "mtl";
 			if (File.Exists(MtlFile))
 				this.MtlStream = new StreamReader(MtlFile);
+
+			Init();
 		}
 
 		private void Init()
@@ -271,5 +273,89 @@ namespace obj2js.ObjData
 			this.Components.Add(CurrentComponent);
 		}
 		#endregion
+
+		public void CreateJson()
+		{
+			// {"model":[{"component":{"vertices":[],"vertexNormals":[],"textureCoords":[],"indices":[],"materialIndices":[],"materials":[]}},{}] }
+			
+			foreach (var component in this.Components)
+			{
+				List<float> vertices = new List<float>();
+				List<float> vertexNormals = new List<float>();
+				List<float> textureCoords = new List<float>();
+				List<int> indices = new List<int>();
+				List<float> materialIndices = new List<float>();
+				List<string> materials = new List<string>();
+				int i = 0;
+
+				foreach (var face in component.faces)
+				{
+					var tempv = component.vertices[face.Item2.Item1 - 1];
+					vertices.Add(tempv.Item1);
+					vertices.Add(tempv.Item2);
+					vertices.Add(tempv.Item3);
+
+					var tempt = component.textureCoords[face.Item2.Item2 - 1];
+					textureCoords.Add(tempt.Item1);
+					textureCoords.Add(tempt.Item2);
+					textureCoords.Add(tempt.Item3);
+
+					var tempn = component.vertexNormals[face.Item2.Item3 - 1];
+					vertexNormals.Add(tempn.Item1);
+					vertexNormals.Add(tempn.Item2);
+					vertexNormals.Add(tempn.Item3);
+
+					indices.Add(i);
+					i++;
+
+					tempv = component.vertices[face.Item3.Item1 - 1];
+					vertices.Add(tempv.Item1);
+					vertices.Add(tempv.Item2);
+					vertices.Add(tempv.Item3);
+
+					tempt = component.textureCoords[face.Item3.Item2 - 1];
+					textureCoords.Add(tempt.Item1);
+					textureCoords.Add(tempt.Item2);
+					textureCoords.Add(tempt.Item3);
+
+					tempn = component.vertexNormals[face.Item3.Item3 - 1];
+					vertexNormals.Add(tempn.Item1);
+					vertexNormals.Add(tempn.Item2);
+					vertexNormals.Add(tempn.Item3);
+
+					indices.Add(i);
+					i++;
+
+					tempv = component.vertices[face.Item4.Item1 - 1];
+					vertices.Add(tempv.Item1);
+					vertices.Add(tempv.Item2);
+					vertices.Add(tempv.Item3);
+
+					tempt = component.textureCoords[face.Item4.Item2 - 1];
+					textureCoords.Add(tempt.Item1);
+					textureCoords.Add(tempt.Item2);
+					textureCoords.Add(tempt.Item3);
+
+					tempn = component.vertexNormals[face.Item4.Item3 - 1];
+					vertexNormals.Add(tempn.Item1);
+					vertexNormals.Add(tempn.Item2);
+					vertexNormals.Add(tempn.Item3);
+
+					indices.Add(i);
+					i++;
+
+					if (!String.IsNullOrEmpty(face.Item1))
+					{
+						//Materials.Where(p=>p.Name == face.Item1).Select(p=>p.)
+					}
+					else
+					{
+						materialIndices.Add(-1.0f);
+						materialIndices.Add(-1.0f);
+						materialIndices.Add(-1.0f);
+					}
+				}
+			}
+		}
 	}
 }
