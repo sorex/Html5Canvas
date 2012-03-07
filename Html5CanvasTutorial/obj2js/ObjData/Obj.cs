@@ -288,72 +288,20 @@ namespace obj2js.ObjData
 				List<string> materials = new List<string>();
 				int i = 0;
 
+				List<Tuple<string, int, int, int>> points = new List<Tuple<string, int, int, int>>();
 				foreach (var face in component.faces)
 				{
-					var tempv = component.vertices[face.Item2.Item1 - 1];
-					vertices.Add(tempv.Item1);
-					vertices.Add(tempv.Item2);
-					vertices.Add(tempv.Item3);
+					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item2.Item1 && p.Item3 == face.Item2.Item2 && p.Item4 == face.Item2.Item3) == 0)
+						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item2.Item1, face.Item2.Item2, face.Item2.Item3));
+					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item3.Item1 && p.Item3 == face.Item3.Item2 && p.Item4 == face.Item3.Item3) == 0)
+						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item3.Item1, face.Item3.Item2, face.Item3.Item3));
+					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item4.Item1 && p.Item3 == face.Item4.Item2 && p.Item4 == face.Item4.Item3) == 0)
+						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item4.Item1, face.Item4.Item2, face.Item4.Item3));
+				}
 
-					var tempt = component.textureCoords[face.Item2.Item2 - 1];
-					textureCoords.Add(tempt.Item1);
-					textureCoords.Add(tempt.Item2);
-					textureCoords.Add(tempt.Item3);
-
-					var tempn = component.vertexNormals[face.Item2.Item3 - 1];
-					vertexNormals.Add(tempn.Item1);
-					vertexNormals.Add(tempn.Item2);
-					vertexNormals.Add(tempn.Item3);
-
-					indices.Add(i);
-					i++;
-
-					tempv = component.vertices[face.Item3.Item1 - 1];
-					vertices.Add(tempv.Item1);
-					vertices.Add(tempv.Item2);
-					vertices.Add(tempv.Item3);
-
-					tempt = component.textureCoords[face.Item3.Item2 - 1];
-					textureCoords.Add(tempt.Item1);
-					textureCoords.Add(tempt.Item2);
-					textureCoords.Add(tempt.Item3);
-
-					tempn = component.vertexNormals[face.Item3.Item3 - 1];
-					vertexNormals.Add(tempn.Item1);
-					vertexNormals.Add(tempn.Item2);
-					vertexNormals.Add(tempn.Item3);
-
-					indices.Add(i);
-					i++;
-
-					tempv = component.vertices[face.Item4.Item1 - 1];
-					vertices.Add(tempv.Item1);
-					vertices.Add(tempv.Item2);
-					vertices.Add(tempv.Item3);
-
-					tempt = component.textureCoords[face.Item4.Item2 - 1];
-					textureCoords.Add(tempt.Item1);
-					textureCoords.Add(tempt.Item2);
-					textureCoords.Add(tempt.Item3);
-
-					tempn = component.vertexNormals[face.Item4.Item3 - 1];
-					vertexNormals.Add(tempn.Item1);
-					vertexNormals.Add(tempn.Item2);
-					vertexNormals.Add(tempn.Item3);
-
-					indices.Add(i);
-					i++;
-
-					if (!String.IsNullOrEmpty(face.Item1))
-					{
-						//Materials.Where(p=>p.Name == face.Item1).Select(p=>p.)
-					}
-					else
-					{
-						materialIndices.Add(-1.0f);
-						materialIndices.Add(-1.0f);
-						materialIndices.Add(-1.0f);
-					}
+				foreach (var point in points)
+				{
+					
 				}
 			}
 		}
