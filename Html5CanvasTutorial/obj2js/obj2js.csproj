@@ -76,7 +76,7 @@
     <Compile Include="ObjData\Obj.cs" />
     <Compile Include="ObjData\Point3D.cs" />
     <Compile Include="ObjData\PointIndex.cs" />
-    <Compile Include="ObjData\WebGLVertex.cs" />
+    <Compile Include="ObjData\WebGLPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
