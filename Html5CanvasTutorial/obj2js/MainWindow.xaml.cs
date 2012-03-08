@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using obj2js.ObjData;
 
 namespace obj2js
 {
@@ -22,6 +23,16 @@ namespace obj2js
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void button1_Click(object sender, RoutedEventArgs e)
+		{
+			Point3D a = new Point3D(1.0f, 2.0f, 3.0f);
+			Point3D b = new Point3D(1.0f, 2.0f, 3.0f);
+			if (a.Equals(b))
+				MessageBox.Show("==");
+			else
+				MessageBox.Show("!=");
 		}
 	}
 }

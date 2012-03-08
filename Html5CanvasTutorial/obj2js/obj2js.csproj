@@ -69,9 +69,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObjData\Component.cs" />
+    <Compile Include="ObjData\Color4.cs" />
+    <Compile Include="ObjData\Face.cs" />
+    <Compile Include="ObjData\Model.cs" />
     <Compile Include="ObjData\Material.cs" />
     <Compile Include="ObjData\Obj.cs" />
+    <Compile Include="ObjData\Point3D.cs" />
+    <Compile Include="ObjData\PointIndex.cs" />
+    <Compile Include="ObjData\WebGLVertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

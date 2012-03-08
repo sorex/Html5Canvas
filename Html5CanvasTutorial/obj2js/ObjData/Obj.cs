@@ -18,21 +18,14 @@ namespace obj2js.ObjData
 		// obj 文件所在文件夹
 		private string Path;
 
-		// 当前 部件
-		private Component CurrentComponent = null;
+		// 当前 模型
+		private Model CurrentModel = new Model();
 
 		// 当前 材质名称
 		private string CurrentMaterialName = String.Empty;
 
-		// 当前 材质名称
+		// 当前 材质
 		private Material CurrentMaterial = null;
-
-		// 部件列表
-		List<Component> Components = new List<Component>();
-
-		// 材质列表
-		public List<Material> Materials = new List<Material>();
-
 
 		public Obj(string ObjFile)
 		{
@@ -52,7 +45,7 @@ namespace obj2js.ObjData
 			{
 				if (line.StartsWith("# object ", true, null))
 				{
-					AddComponent(line);
+					NewComponent(line);
 				}
 				else if (line.StartsWith("v ", true, null))
 				{
@@ -138,16 +131,16 @@ namespace obj2js.ObjData
 			switch (rgba.Length)
 			{
 				case 1:
-					this.CurrentMaterial.Emission = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
+					this.CurrentMaterial.Emission = new Color4(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
 					break;
 				case 3:
-					this.CurrentMaterial.Emission = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
+					this.CurrentMaterial.Emission = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
 					break;
 				case 4:
-					this.CurrentMaterial.Emission = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+					this.CurrentMaterial.Emission = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 					break;
 				default:
-					this.CurrentMaterial.Emission = new Tuple<float, float, float, float>(0.0f, 0.0f, 0.0f, 1.0f);
+					this.CurrentMaterial.Emission = new Color4(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 			}
 		}
@@ -159,16 +152,16 @@ namespace obj2js.ObjData
 			switch (rgba.Length)
 			{
 				case 1:
-					this.CurrentMaterial.Specular = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
+					this.CurrentMaterial.Specular = new Color4(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
 					break;
 				case 3:
-					this.CurrentMaterial.Specular = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
+					this.CurrentMaterial.Specular = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
 					break;
 				case 4:
-					this.CurrentMaterial.Specular = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+					this.CurrentMaterial.Specular = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 					break;
 				default:
-					this.CurrentMaterial.Specular = new Tuple<float, float, float, float>(0.0f, 0.0f, 0.0f, 1.0f);
+					this.CurrentMaterial.Specular = new Color4(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 			}
 		}
@@ -180,16 +173,16 @@ namespace obj2js.ObjData
 			switch (rgba.Length)
 			{
 				case 1:
-					this.CurrentMaterial.Diffuse = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
+					this.CurrentMaterial.Diffuse = new Color4(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
 					break;
 				case 3:
-					this.CurrentMaterial.Diffuse = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
+					this.CurrentMaterial.Diffuse = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
 					break;
 				case 4:
-					this.CurrentMaterial.Diffuse = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+					this.CurrentMaterial.Diffuse = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 					break;
 				default:
-					this.CurrentMaterial.Diffuse = new Tuple<float, float, float, float>(0.8f, 0.8f, 0.8f, 1.0f);
+					this.CurrentMaterial.Diffuse = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
 					break;
 			}
 		}
@@ -201,16 +194,16 @@ namespace obj2js.ObjData
 			switch (rgba.Length)
 			{
 				case 1:
-					this.CurrentMaterial.Ambient = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
+					this.CurrentMaterial.Ambient = new Color4(float.Parse(rgba[0]), float.Parse(rgba[0]), float.Parse(rgba[0]), 1.0f);
 					break;
 				case 3:
-					this.CurrentMaterial.Ambient = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
+					this.CurrentMaterial.Ambient = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), 1.0f);
 					break;
 				case 4:
-					this.CurrentMaterial.Ambient = new Tuple<float, float, float, float>(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+					this.CurrentMaterial.Ambient = new Color4(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 					break;
 				default:
-					this.CurrentMaterial.Ambient = new Tuple<float, float, float, float>(0.2f, 0.2f, 0.2f, 1.0f);
+					this.CurrentMaterial.Ambient = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
 					break;
 			}
 		}
@@ -220,7 +213,7 @@ namespace obj2js.ObjData
 			// "newmtl Material__23"
 			var MaterialName = line.Substring(6, line.Length - 6).Trim();
 			this.CurrentMaterial = new Material() { Name = MaterialName };
-			this.Materials.Add(CurrentMaterial);
+			this.CurrentModel.Materials.Add(CurrentMaterial);
 		}
 
 		#endregion
@@ -230,10 +223,10 @@ namespace obj2js.ObjData
 		{
 			// "f 1/1/1 2/2/1 3/3/1"
 			string[] abc = line.Replace("f", "").Trim().Split(new char[] { ' ', '/' });
-			this.CurrentComponent.faces.Add(new Tuple<string, Tuple<int, int, int>, Tuple<int, int, int>, Tuple<int, int, int>>(this.CurrentMaterialName,
-				new Tuple<int, int, int>(int.Parse(abc[0]), int.Parse(abc[1]), int.Parse(abc[2])),
-				new Tuple<int, int, int>(int.Parse(abc[3]), int.Parse(abc[4]), int.Parse(abc[5])),
-				new Tuple<int, int, int>(int.Parse(abc[6]), int.Parse(abc[7]), int.Parse(abc[8]))));
+			this.CurrentModel.Faces.Add(new Face(this.CurrentMaterialName,
+				new PointIndex(int.Parse(abc[0]), int.Parse(abc[1]), int.Parse(abc[2])),
+				new PointIndex(int.Parse(abc[3]), int.Parse(abc[4]), int.Parse(abc[5])),
+				new PointIndex(int.Parse(abc[6]), int.Parse(abc[7]), int.Parse(abc[8]))));
 		}
 
 		private void ChangeCurrentMaterial(string line)
@@ -247,63 +240,58 @@ namespace obj2js.ObjData
 		{
 			// "vt 1.0000 1.0000 0.0000"
 			string[] xyz = line.Replace("vt", "").Trim().Split(' ');
-			this.CurrentComponent.textureCoords.Add(new Tuple<float, float, float>(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
+			this.CurrentModel.TextureCoords.Add(new Point3D(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
 		}
 
 		private void AddVertixNormal(string line)
 		{
 			// "vn 0.0000 -1.0000 -0.0000"
 			string[] xyz = line.Replace("vn", "").Trim().Split(' ');
-			this.CurrentComponent.vertexNormals.Add(new Tuple<float, float, float>(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
+			this.CurrentModel.VertexNormals.Add(new Point3D(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
 		}
 
 		private void AddVertix(string line)
 		{
 			// "v  11.7547 0.0000 -26.4473"
 			string[] xyz = line.Replace("v", "").Trim().Split(' ');
-			this.CurrentComponent.vertices.Add(new Tuple<float, float, float>(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
+			this.CurrentModel.Vertices.Add(new Point3D(float.Parse(xyz[0]), float.Parse(xyz[1]), float.Parse(xyz[2])));
 		}
 
-		private void AddComponent(string line)
+		private void NewComponent(string line)
 		{
 			// "# object Box001"
-			var ComponentName = line.Substring(9, line.Length - 9).Trim();
-			this.CurrentComponent = new Component() { Name = ComponentName };
 			this.CurrentMaterialName = String.Empty;
-			this.Components.Add(CurrentComponent);
 		}
 		#endregion
 
 		public void CreateJson()
 		{
 			// {"model":[{"component":{"vertices":[],"vertexNormals":[],"textureCoords":[],"indices":[],"materialIndices":[],"materials":[]}},{}] }
-			
-			foreach (var component in this.Components)
-			{
-				List<float> vertices = new List<float>();
-				List<float> vertexNormals = new List<float>();
-				List<float> textureCoords = new List<float>();
-				List<int> indices = new List<int>();
-				List<float> materialIndices = new List<float>();
-				List<string> materials = new List<string>();
-				int i = 0;
 
-				List<Tuple<string, int, int, int>> points = new List<Tuple<string, int, int, int>>();
-				foreach (var face in component.faces)
-				{
-					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item2.Item1 && p.Item3 == face.Item2.Item2 && p.Item4 == face.Item2.Item3) == 0)
-						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item2.Item1, face.Item2.Item2, face.Item2.Item3));
-					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item3.Item1 && p.Item3 == face.Item3.Item2 && p.Item4 == face.Item3.Item3) == 0)
-						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item3.Item1, face.Item3.Item2, face.Item3.Item3));
-					if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item4.Item1 && p.Item3 == face.Item4.Item2 && p.Item4 == face.Item4.Item3) == 0)
-						points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item4.Item1, face.Item4.Item2, face.Item4.Item3));
-				}
+			//List<float> vertices = new List<float>();
+			//List<float> vertexNormals = new List<float>();
+			//List<float> textureCoords = new List<float>();
+			//List<int> indices = new List<int>();
+			//List<float> materialIndices = new List<float>();
+			//List<string> materials = new List<string>();
+			//int i = 0;
 
-				foreach (var point in points)
-				{
-					
-				}
-			}
+			//List<Tuple<string, int, int, int>> points = new List<Tuple<string, int, int, int>>();
+			//foreach (var face in this.CurrentModel.Faces)
+			//{
+			//    if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item2.Item1 && p.Item3 == face.Item2.Item2 && p.Item4 == face.Item2.Item3) == 0)
+			//        points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item2.Item1, face.Item2.Item2, face.Item2.Item3));
+			//    if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item3.Item1 && p.Item3 == face.Item3.Item2 && p.Item4 == face.Item3.Item3) == 0)
+			//        points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item3.Item1, face.Item3.Item2, face.Item3.Item3));
+			//    if (points.Count(p => p.Item1 == face.Item1 && p.Item2 == face.Item4.Item1 && p.Item3 == face.Item4.Item2 && p.Item4 == face.Item4.Item3) == 0)
+			//        points.Add(new Tuple<string, int, int, int>(face.Item1, face.Item4.Item1, face.Item4.Item2, face.Item4.Item3));
+			//}
+
+			//foreach (var point in points)
+			//{
+
+			//}
+
 		}
 	}
 }
