@@ -19,7 +19,7 @@ namespace obj2js.ObjData
 		private string Path;
 
 		// 当前 模型
-		private Model CurrentModel = new Model();
+		public Model CurrentModel = new Model();
 
 		// 当前 材质名称
 		private string CurrentMaterialName = String.Empty;

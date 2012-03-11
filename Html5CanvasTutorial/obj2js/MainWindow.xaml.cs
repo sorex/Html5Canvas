@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using obj2js.ObjData;
+using Microsoft.Win32;
 
 namespace obj2js
 {
@@ -25,14 +26,31 @@ namespace obj2js
 			InitializeComponent();
 		}
 
+		private void btnBrowseObj_Click(object sender, RoutedEventArgs e)
+		{
+			// Configure open file dialog box
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.FileName = "Document"; // Default file name
+			dlg.DefaultExt = ".obj"; // Default file extension
+			dlg.Filter = "obj documents (.obj)|*.obj"; // Filter files by extension
+
+			// Show open file dialog box
+			Nullable<bool> result = dlg.ShowDialog();
+
+			// Process open file dialog box results
+			if (result == true)
+			{
+				// Open document
+				this.textBox1.Text = dlg.FileName;
+			}
+		}
+
 		private void button1_Click(object sender, RoutedEventArgs e)
 		{
-			Point3D a = new Point3D(1.0f, 2.0f, 3.0f);
-			Point3D b = new Point3D(1.0f, 2.0f, 3.0f);
-			if (a.Equals(b))
-				MessageBox.Show("==");
-			else
-				MessageBox.Show("!=");
+			ObjData.Obj obj = new Obj(this.textBox1.Text);
+			obj.CurrentModel.Init();
+			this.textBox4.Text = obj.CurrentModel.Json();
 		}
+
 	}
 }
