@@ -6,26 +6,53 @@
 	<script type="text/javascript">
 		var glHelp1;
 		var model1 = {
-			transform: function () { },
-			material: material1,
-			components: []
+			vertices: [
+				0.0, 0.0, 0.0,
+				1.0, 0.0, 0.0,
+				0.0, 1.0, 0.0],
+			vertexNormals: [
+				0.0, 0.0, 1.0,
+				0.0, 0.0, 1.0,
+				0.0, 0.0, 1.0],
+			textureCoords: [
+				0.0, 0.0, 0.0,
+				1.0, 0.0, 0.0,
+				0.0, 1.0, 0.0],
+			materialIndices: [0, 0, 0],
+			indices: [0, 1, 2]
 		};
-		var camera1 = {};
+		var material1 = ["Resources/0.png"];
+		var camera1 = {
+			eye: [0.0, 0.0, 5.0],
+			center: [0.0, 0.0, 0.0],
+			up: [0.0, 1.0, 0.0]
+		};
+
+		model1.transform = function () { 
+		
+		}
 
 		function initCanvas() {
 			glHelp1 = new glHelp("MyCanvas");
 			glHelp1.models.add(model1);
 			glHelp1.camera = camera1;
 			glHelp1.animate = animate1;
+			glHelp1.drawScene();
 		}
 
 		function animate1() {
-			glHelp1.keyList
+			var timeNow = new Date().getTime();
+			if (glHelp1.lastTime != 0) {
+				var elapsed = timeNow - glHelp1.lastTime;
+
+				glHelp1.user_xRot += (this.user_xSpeed * elapsed) / 1000.0; // 自动旋转
+				glHelp1.user_yRot += (this.user_ySpeed * elapsed) / 1000.0; // 自动旋转
+			}
+			glHelp1.lastTime = timeNow;
 		}
 	</script>
 </head>
 <body>
-	<canvas id="MyCanvas" height="600" width="800" style="border: 1px;">
-	</canvas><br />
+	<canvas id="MyCanvas" height="600" width="800" style="border: 1px;"></canvas><br />
 </body>
 </html>
