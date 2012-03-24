@@ -75,6 +75,10 @@
   <ItemGroup>
     <Folder Include="Lesson001\Scripts\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicScripts\fragment.glsl" />
+    <None Include="BasicScripts\vertex.glsl" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
